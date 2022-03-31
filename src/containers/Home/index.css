@@ -1,0 +1,92 @@
+aside.sidebar {
+  align-self: flex-start;
+}
+
+ul.stacked-list {
+  padding: 0.5rem;
+}
+
+section > p.text-sm,
+p.text-md {
+  padding: 0 0.5rem;
+  line-height: 1rem;
+}
+
+div > p.text-sm,
+p.text-md,
+h4.h4 {
+  padding: 0 0.5rem;
+  line-height: 1rem;
+}
+
+img.hero-img {
+  max-width: 210px;
+  max-height: 280px;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+li > label {
+  padding: 0.5rem;
+  margin: 0;
+}
+
+.main-section.grid-2 {
+  grid-template-columns: 1fr 3fr;
+}
+
+.checkbox.grid-2 {
+  grid-template-columns: 1fr 10fr;
+  gap: 0.5rem;
+
+  padding: 0.5rem;
+}
+
+div.card-wrapper.vertical.no-padding {
+  width: 210px;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.section.grid-auto {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 250px));
+  gap: 1rem;
+  row-gap: 2rem;
+
+  align-self: flex-start;
+}
+
+.slider {
+  margin-top: 1rem;
+}
+
+.text-sm.price-cut {
+  text-decoration: line-through;
+}
+
+.text-sm.discount {
+  padding: 0;
+  justify-self: flex-start;
+
+  color: green;
+}
+
+.column.flex-start {
+  align-items: flex-start;
+}
+
+.grid-3.pricing {
+  padding: 0;
+  justify-content: flex-start;
+  gap: 0;
+}
+
+p.text-sm.sub-text {
+  color: var(--grey);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

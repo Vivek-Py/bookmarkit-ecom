@@ -1,0 +1,77 @@
+.card-wrapper.vertical {
+  border-radius: 1em;
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+
+  width: 100%;
+}
+
+form.flex.column {
+  width: 90%;
+}
+
+.fa.icon-login {
+  color: var(--action);
+  transform: scale(1.5);
+}
+
+.fa.magic-link-icon {
+  transform: scale(1.1);
+  color: var(--action);
+  border: 1px solid var(--primary);
+  border-radius: 4em;
+  padding: 0.5rem 1rem;
+}
+
+.fa.loading {
+  border: none;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.hr {
+  flex-grow: 1;
+  border: none;
+  border-bottom: 1px solid var(--action-hover);
+}
+
+#toast {
+  padding: 0;
+  margin: 0;
+
+  max-width: 90vw;
+  margin: auto;
+}
+
+#toast > * {
+  margin: 0;
+}
+
+form > .input {
+  border-radius: 0.5em;
+  width: 90%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #toast {
+    left: 0.5rem;
+    bottom: 1rem;
+  }
+}
