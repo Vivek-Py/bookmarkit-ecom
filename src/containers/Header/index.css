@@ -1,0 +1,8 @@
+.input.search {
+  height: 1rem;
+  align-self: center;
+  justify-self: flex-start;
+
+  border-radius: 10px;
+  margin-left: 1rem;
+}

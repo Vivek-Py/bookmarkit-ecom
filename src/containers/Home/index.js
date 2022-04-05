@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ProductProvider, useProducts } from "./productContext";
+import { useProducts } from "./productContext";
 import { useHeader } from "../Header/headerContext";
 
 import "./index.css";
@@ -206,11 +206,9 @@ const Home = () => {
 };
 
 const HomeProducts = () => (
-  <ProductProvider>
-    <WhishlistProvider>
-      <Home />
-    </WhishlistProvider>
-  </ProductProvider>
+  <WhishlistProvider>
+    <Home />
+  </WhishlistProvider>
 );
 
 export default HomeProducts;

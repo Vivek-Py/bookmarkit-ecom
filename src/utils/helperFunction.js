@@ -15,6 +15,7 @@ export const showToast = ({ element, message, type }) => {
   }, 1500);
 };
 
+// Throttle function
 export const throttleFn = (fn, delay) => {
   let flag = true;
   return function () {
@@ -23,6 +24,17 @@ export const throttleFn = (fn, delay) => {
     setTimeout(() => {
       fn.apply(this, arguments);
       flag = true;
+    }, delay);
+  };
+};
+
+// Debounce function
+export const debounceFn = (fn, delay) => {
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, arguments);
     }, delay);
   };
 };

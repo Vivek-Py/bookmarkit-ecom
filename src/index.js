@@ -12,27 +12,30 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./containers/Header";
 import "./index.css";
 import { HeaderProvider } from "./containers/Header/headerContext";
+import { ProductProvider } from "./containers/Home/productContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <HeaderProvider>
-      <LoginProvider>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/wishlist"
-              element={<ProtectedRoute element={<Wishlist />} />}
-            />
-            <Route
-              path="/cart"
-              element={<ProtectedRoute element={<Cart />} />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </LoginProvider>
+      <ProductProvider>
+        <LoginProvider>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/wishlist"
+                element={<ProtectedRoute element={<Wishlist />} />}
+              />
+              <Route
+                path="/cart"
+                element={<ProtectedRoute element={<Cart />} />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </LoginProvider>
+      </ProductProvider>
     </HeaderProvider>
   </React.StrictMode>,
   document.getElementById("root")
