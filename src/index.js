@@ -5,8 +5,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./containers/Cart";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
-import { LoginProvider } from "./containers/Login/loginContext";
 import Wishlist from "./containers/Wishlist";
+import { LoginProvider } from "./containers/Login/loginContext";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";

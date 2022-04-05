@@ -1,5 +1,10 @@
 aside.sidebar {
   align-self: flex-start;
+  position: sticky;
+  top: 0;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 ul.stacked-list {
@@ -32,7 +37,7 @@ li > label {
 }
 
 .main-section.grid-2 {
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 4fr;
 }
 
 .checkbox.grid-2 {
@@ -50,14 +55,16 @@ div.card-wrapper.vertical.no-padding {
 }
 
 .section.grid-auto {
-  grid-template-columns: repeat(auto-fit, minmax(210px, 250px));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 210px));
   gap: 1rem;
   row-gap: 2rem;
 
   align-self: flex-start;
+  justify-content: flex-start;
 }
 
 .slider {
+  width: 100%;
   margin-top: 1rem;
 }
 
@@ -89,4 +96,15 @@ p.text-sm.sub-text {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.price-slider {
+  position: relative;
+}
+
+span.price-tip {
+  position: absolute;
+  bottom: 0;
+
+  padding: 0 1rem;
 }
