@@ -6,6 +6,7 @@ const HeaderContext = createContext({ items: 0 });
 export const HeaderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     items: 0,
+    cartItems: 0,
   });
 
   return (
