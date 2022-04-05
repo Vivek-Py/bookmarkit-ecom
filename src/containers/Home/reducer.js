@@ -50,6 +50,20 @@ export const reducer = (state, action) => {
         productFilters: filteredProducts,
       };
 
+    case "REQUEST_SEARCH_FILTER":
+      console.log(action.payload);
+      const regEx = new RegExp(action.payload, "gi");
+      const filteredProductsBySearch = state.products.filter(
+        (product) =>
+          product.brand.match(regEx) ||
+          product.brand_sub_text.match(regEx) ||
+          product.detail.match(regEx)
+      );
+      console.log(filteredProductsBySearch);
+      return {
+        ...state,
+        productFilters: filteredProductsBySearch,
+      };
     default:
       return state;
   }
