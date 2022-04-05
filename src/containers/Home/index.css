@@ -54,6 +54,23 @@ div.card-wrapper.vertical.no-padding {
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
+div.card-wrapper.vertical.no-padding.opacity-low {
+  background: rgba(0, 0, 0, 0.05);
+  position: relative;
+  opacity: 0.6;
+}
+
+button.secondary-btn:hover {
+  background-color: var(--primary);
+  opacity: 1;
+}
+
+.card-wrapper > button.secondary-btn {
+  position: absolute;
+  display: none;
+  bottom: 8rem;
+}
+
 .section.grid-auto {
   grid-template-columns: repeat(auto-fit, minmax(210px, 210px));
   gap: 1rem;

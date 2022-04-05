@@ -7,15 +7,11 @@ export const reducer = (state, action) => {
         productFilters: action.payload,
       };
     case "SET_PRODUCT_FILTERS":
-      console.log("insider 1");
-
       if (
         !action?.payload?.gender.length &&
         !action.payload.star.length &&
         !action.payload.minPrice
       ) {
-        console.log("insider 2");
-
         return {
           ...state,
           productFilters: state.products,
@@ -25,7 +21,7 @@ export const reducer = (state, action) => {
         let gender = null;
         let rating = null;
         let price = null;
-        console.log("insider");
+
         if (action?.payload?.gender.length) {
           gender = action?.payload?.gender.find(
             (itr) => itr === product?.gender
