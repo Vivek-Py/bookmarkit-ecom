@@ -41,3 +41,36 @@ export async function removeFromWishlist(args) {
     return removed;
   }
 }
+
+export async function getAllCartProducts() {
+  const { data: wishlist, error } = await supabase.from("cart").select(`
+    id,
+    products (*)
+  `);
+  if (error) {
+    return [];
+  } else {
+    return wishlist;
+  }
+}
+
+export async function addToCart(args) {
+  const { data: added, error } = await supabase.from("cart").insert([args]);
+  if (error) {
+    return [];
+  } else {
+    return added;
+  }
+}
+
+export async function removeFromCart(args) {
+  const { data: removed, error } = await supabase
+    .from("cart")
+    .delete()
+    .match(args);
+  if (error) {
+    return [];
+  } else {
+    return removed;
+  }
+}

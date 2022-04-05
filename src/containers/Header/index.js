@@ -4,15 +4,24 @@ import { useHeader } from "./headerContext";
 import { WhishlistProvider } from "../Wishlist/wishlistContext";
 import { APP_NAME, LOGIN, SEARCH_PLACEHOLDER } from "../../utils/constants";
 import { useEffect } from "react";
-import { getAllWishlistProducts } from "../../utils/databaseQuery";
+import {
+  getAllCartProducts,
+  getAllWishlistProducts,
+} from "../../utils/databaseQuery";
 
 const Header = () => {
-  const { items, dispatch } = useHeader();
+  const { items, cartItems, dispatch } = useHeader();
   useEffect(() => {
     getAllWishlistProducts().then((wishlist) => {
       dispatch({
         type: "SET_ITEMS",
         payload: wishlist.length,
+      });
+    });
+    getAllCartProducts().then((cart) => {
+      dispatch({
+        type: "SET_CART_ITEMS",
+        payload: cart.length,
       });
     });
   }, [dispatch]);
@@ -36,7 +45,7 @@ const Header = () => {
         <Link className="nav-item" to="/cart">
           <div className="badge-wrapper">
             <i className="fas fa-solid fa-cart-arrow-down fa-2x icon">
-              <div className="badge__icon--right">1</div>
+              <div className="badge__icon--right">{cartItems}</div>
             </i>
           </div>
         </Link>

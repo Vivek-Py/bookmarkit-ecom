@@ -3,9 +3,12 @@ import { useWishlist, WhishlistProvider } from "./wishlistContext";
 import { useHeader } from "../Header/headerContext";
 
 import {
+  addToCart,
+  getAllCartProducts,
   getAllWishlistProducts,
   removeFromWishlist,
 } from "../../utils/databaseQuery";
+import { supabaseAuthId } from "../../utils/supabaseClient";
 
 const Wishlist = () => {
   const { wishlist, dispatch } = useWishlist();
@@ -36,8 +39,36 @@ const Wishlist = () => {
                 productsRef.current[itr].children[0].style.display = "none";
               }}
             >
-              <button id="no-opacity" className="secondary-btn">
-                Add to cart
+              <button
+                id="no-opacity"
+                className="secondary-btn"
+                onClick={async () => {
+                  await addToCart({
+                    product_id: item.products.id,
+                    user_id: supabaseAuthId,
+                  });
+                  await removeFromWishlist({ id: item?.id });
+                  getAllWishlistProducts()
+                    .then((wishlist) => {
+                      dispatch({ type: "SET_WISHLIST", payload: wishlist });
+                      headerDispatch({
+                        type: "SET_ITEMS",
+                        payload: wishlist.length,
+                      });
+                    })
+                    .catch(dispatch({ type: "SET_WISHLIST", payload: [] }));
+                  getAllCartProducts()
+                    .then((cart) => {
+                      dispatch({ type: "SET_CART", payload: cart });
+                      headerDispatch({
+                        type: "SET_CART_ITEMS",
+                        payload: cart.length,
+                      });
+                    })
+                    .catch(dispatch({ type: "SET_CART", payload: [] }));
+                }}
+              >
+                Move to cart
               </button>
               <button
                 class="card-dismiss-btn"
