@@ -1,16 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ProductProvider, useProducts } from "./productContext";
+import { useHeader } from "../Header/headerContext";
 
 import "./index.css";
+import {
+  addToWishlist,
+  getAllWishlistProducts,
+} from "../../utils/databaseQuery";
+import { supabaseAuthId } from "../../utils/supabaseClient";
+import { WhishlistProvider } from "../Wishlist/wishlistContext";
 
 const Home = () => {
   /* Custom webhook for products */
   const { productFilters, dispatch } = useProducts();
+  const { dispatch: headerDispatch } = useHeader();
 
   /* States for product filters */
   const [genderFilter, setGenderFilter] = useState([]);
   const [starFilter, setStarFilter] = useState([]);
   const [minPrice, setMinPrice] = useState(1);
+
+  /* Ref for all products */
+  const productsRef = useRef([]);
 
   /* Function to handle various filter */
   const handleFilter = (type) => {
@@ -40,7 +51,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log("dispatching", minPrice);
     dispatch({
       type: "SET_PRODUCT_FILTERS",
       payload: { gender: genderFilter, star: starFilter, minPrice },
@@ -123,18 +133,52 @@ const Home = () => {
                 id="slider"
                 onChange={handleFilter("price")}
               />
-              <span class="price-tip --left">₹ 1</span>
-              <span class="price-tip --right">₹ 1000</span>
+              <span className="price-tip --left">₹ 1</span>
+              <span className="price-tip --right">₹ 1000</span>
             </ul>
           </form>
         </aside>
         <section className="section grid-auto">
-          {productFilters.map((product) => {
+          {productFilters.map((product, itr) => {
             return (
               <div
                 key={product?.id}
                 className="card-wrapper vertical no-padding"
+                ref={(ele) => (productsRef.current[itr] = ele)}
+                onMouseEnter={() => {
+                  const className = productsRef.current[itr].className;
+                  productsRef.current[
+                    itr
+                  ].className = `${className} opacity-low`;
+                  productsRef.current[itr].children[0].style.display = "block";
+                }}
+                onMouseLeave={() => {
+                  const className = productsRef.current[itr].className;
+                  productsRef.current[itr].className = `${className.replace(
+                    "opacity-low",
+                    ""
+                  )}`;
+                  productsRef.current[itr].children[0].style.display = "none";
+                }}
               >
+                <button
+                  id="no-opacity"
+                  className="secondary-btn"
+                  onClick={async () => {
+                    await addToWishlist({
+                      product_id: product.id,
+                      user_id: supabaseAuthId,
+                    });
+                    getAllWishlistProducts().then((wishlist) => {
+                      headerDispatch({
+                        type: "SET_ITEMS",
+                        payload: wishlist.length,
+                      });
+                    });
+                  }}
+                >
+                  Add to Wishlist
+                </button>
                 <img
                   className="card-img responsive-img hero-img"
                   loading="lazy"
@@ -163,7 +207,9 @@ const Home = () => {
 
 const HomeProducts = () => (
   <ProductProvider>
-    <Home />
+    <WhishlistProvider>
+      <Home />
+    </WhishlistProvider>
   </ProductProvider>
 );
 
