@@ -74,3 +74,15 @@ export async function removeFromCart(args) {
     return removed;
   }
 }
+
+export async function findProduct(args) {
+  const { data: product, error } = await supabase
+    .from("products")
+    .select("*")
+    .match(args);
+  if (error) {
+    return [];
+  } else {
+    return product;
+  }
+}

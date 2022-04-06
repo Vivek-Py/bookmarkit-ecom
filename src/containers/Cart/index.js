@@ -2,15 +2,17 @@ import React, { useRef } from "react";
 import { CartProvider, useCart } from "./cartContext";
 import { useHeader } from "../Header/headerContext";
 import { getAllCartProducts, removeFromCart } from "../../utils/databaseQuery";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cart, dispatch } = useCart();
   const { dispatch: headerDispatch } = useHeader();
 
+  const navigate = useNavigate();
   const productsRef = useRef([]);
   return (
     <>
-      <h3 class="h3">My Cart</h3>
+      <h3 className="h3">My Cart</h3>
       <section className="section grid-auto">
         {cart.map((item, itr) => {
           return (
@@ -32,11 +34,15 @@ const Cart = () => {
                 productsRef.current[itr].children[0].style.display = "none";
               }}
             >
-              <button id="no-opacity" className="secondary-btn">
+              <button
+                id="no-opacity"
+                className="secondary-btn"
+                onClick={() => navigate("/product/" + item?.products?.id)}
+              >
                 View Product
               </button>
               <button
-                class="card-dismiss-btn"
+                className="card-dismiss-btn"
                 onClick={async () => {
                   await removeFromCart({ id: item?.id });
                   getAllCartProducts()
