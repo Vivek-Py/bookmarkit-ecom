@@ -51,7 +51,6 @@ export const reducer = (state, action) => {
       };
 
     case "REQUEST_SEARCH_FILTER":
-      console.log(action.payload);
       const regEx = new RegExp(action.payload, "gi");
       const filteredProductsBySearch = state.products.filter(
         (product) =>
@@ -59,7 +58,6 @@ export const reducer = (state, action) => {
           product.brand_sub_text.match(regEx) ||
           product.detail.match(regEx)
       );
-      console.log(filteredProductsBySearch);
       return {
         ...state,
         productFilters: filteredProductsBySearch,

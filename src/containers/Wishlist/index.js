@@ -10,6 +10,8 @@ import {
 } from "../../utils/databaseQuery";
 import { supabaseAuthId } from "../../utils/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import If from "../../components/If";
+import Error from "../../components/Error";
 
 const Wishlist = () => {
   const productsRef = useRef([]);
@@ -23,7 +25,7 @@ const Wishlist = () => {
       .catch(dispatch({ type: "SET_WISHLIST", payload: [] }));
   }, [dispatch]);
   return (
-    <>
+    <If condition={wishlist[0]} otherwise={<Error />}>
       <h3 className="h3">My Wishlist</h3>
       <section className="section grid-auto">
         {wishlist?.map((item, itr) => {
@@ -126,7 +128,7 @@ const Wishlist = () => {
           );
         })}
       </section>
-    </>
+    </If>
   );
 };
 
