@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { useWishlist, WhishlistProvider } from "./wishlistContext";
+import { useEffect, useRef } from "react";
+import { useWishlist } from "./wishlistContext";
 import { useHeader } from "../Header/headerContext";
 
 import {
@@ -9,17 +9,24 @@ import {
   removeFromWishlist,
 } from "../../utils/databaseQuery";
 import { supabaseAuthId } from "../../utils/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 const Wishlist = () => {
+  const productsRef = useRef([]);
+  const navigate = useNavigate();
   const { wishlist, dispatch } = useWishlist();
   const { dispatch: headerDispatch } = useHeader();
 
-  const productsRef = useRef([]);
+  useEffect(() => {
+    getAllWishlistProducts()
+      .then((wishlist) => dispatch({ type: "SET_WISHLIST", payload: wishlist }))
+      .catch(dispatch({ type: "SET_WISHLIST", payload: [] }));
+  }, [dispatch]);
   return (
     <>
-      <h3 class="h3">My Wishlist</h3>
+      <h3 className="h3">My Wishlist</h3>
       <section className="section grid-auto">
-        {wishlist.map((item, itr) => {
+        {wishlist?.map((item, itr) => {
           return (
             <div
               key={itr}
@@ -29,6 +36,7 @@ const Wishlist = () => {
                 const className = productsRef.current[itr].className;
                 productsRef.current[itr].className = `${className} opacity-low`;
                 productsRef.current[itr].children[0].style.display = "block";
+                productsRef.current[itr].children[1].style.display = "block";
               }}
               onMouseLeave={() => {
                 const className = productsRef.current[itr].className;
@@ -37,6 +45,7 @@ const Wishlist = () => {
                   ""
                 )}`;
                 productsRef.current[itr].children[0].style.display = "none";
+                productsRef.current[itr].children[1].style.display = "none";
               }}
             >
               <button
@@ -71,7 +80,14 @@ const Wishlist = () => {
                 Move to cart
               </button>
               <button
-                class="card-dismiss-btn"
+                id="no-opacity"
+                className="secondary-btn upper"
+                onClick={() => navigate("/product/" + item?.products?.id)}
+              >
+                View Details
+              </button>
+              <button
+                className="card-dismiss-btn"
                 onClick={async () => {
                   await removeFromWishlist({ id: item?.id });
                   getAllWishlistProducts()
@@ -90,7 +106,7 @@ const Wishlist = () => {
               <img
                 className="card-img responsive-img hero-img"
                 loading="lazy"
-                src={item?.products.img}
+                src={item?.products?.img}
                 alt="Sample Avatar"
               />
               <section className="flex column flex-start">
@@ -114,10 +130,6 @@ const Wishlist = () => {
   );
 };
 
-const WishlistProducts = () => (
-  <WhishlistProvider>
-    <Wishlist />
-  </WhishlistProvider>
-);
+const WishlistProducts = () => <Wishlist />;
 
 export default WishlistProducts;

@@ -13,6 +13,7 @@ import {
 
 import "./index.css";
 import { debounceFn } from "../../utils/helperFunction";
+import { supabaseAuthId } from "../../utils/supabaseClient";
 
 const Header = () => {
   const { items, cartItems, dispatch } = useHeader();
@@ -30,7 +31,8 @@ const Header = () => {
         payload: cart.length,
       });
     });
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, supabaseAuthId]);
 
   const handleSearch = (e) => {
     dispatchProducts({

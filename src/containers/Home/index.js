@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useProducts } from "./productContext";
 import { useHeader } from "../Header/headerContext";
 
@@ -22,6 +23,7 @@ const Home = () => {
 
   /* Ref for all products */
   const productsRef = useRef([]);
+  const navigate = useNavigate();
 
   /* Function to handle various filter */
   const handleFilter = (type) => {
@@ -151,6 +153,7 @@ const Home = () => {
                     itr
                   ].className = `${className} opacity-low`;
                   productsRef.current[itr].children[0].style.display = "block";
+                  productsRef.current[itr].children[1].style.display = "block";
                 }}
                 onMouseLeave={() => {
                   const className = productsRef.current[itr].className;
@@ -159,6 +162,7 @@ const Home = () => {
                     ""
                   )}`;
                   productsRef.current[itr].children[0].style.display = "none";
+                  productsRef.current[itr].children[1].style.display = "none";
                 }}
               >
                 <button
@@ -178,6 +182,13 @@ const Home = () => {
                   }}
                 >
                   Add to Wishlist
+                </button>
+                <button
+                  id="no-opacity"
+                  className="secondary-btn upper"
+                  onClick={() => navigate("/product/" + product?.id)}
+                >
+                  View Details
                 </button>
                 <img
                   className="card-img responsive-img hero-img"

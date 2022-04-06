@@ -70,6 +70,12 @@ button.secondary-btn:hover {
   display: none;
   bottom: 8rem;
 }
+.card-wrapper > button.secondary-btn.upper {
+  position: absolute;
+  display: none;
+  bottom: 11rem;
+  background-color: var(--primary);
+}
 
 .section.grid-auto {
   grid-template-columns: repeat(auto-fit, minmax(210px, 210px));
