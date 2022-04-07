@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useHeader } from "./headerContext";
 import { WhishlistProvider } from "../Wishlist/wishlistContext";
-import { useProducts } from "../Home/productContext";
+import { useProducts } from "../Products/productContext";
 
 import { APP_NAME, LOGIN, SEARCH_PLACEHOLDER } from "../../utils/constants";
 import {
@@ -18,6 +18,8 @@ import { supabaseAuthId } from "../../utils/supabaseClient";
 const Header = () => {
   const { items, cartItems, dispatch } = useHeader();
   const { dispatch: dispatchProducts } = useProducts();
+  const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     getAllWishlistProducts().then((wishlist) => {
       dispatch({
@@ -35,10 +37,15 @@ const Header = () => {
   }, [dispatch, supabaseAuthId]);
 
   const handleSearch = (e) => {
-    dispatchProducts({
-      type: "REQUEST_SEARCH_FILTER",
-      payload: e.target.value,
-    });
+    if (location.pathname !== "/products") {
+      navigate("/products");
+    }
+    setTimeout(() => {
+      dispatchProducts({
+        type: "REQUEST_SEARCH_FILTER",
+        payload: e.target.value,
+      });
+    }, 0);
   };
 
   const debouncedSearch = debounceFn(handleSearch, 500);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import If from "../../components/If";
 import { useHeader } from "../Header/headerContext";
 import { useWishlist } from "../Wishlist/wishlistContext";
@@ -13,12 +13,12 @@ import {
 import { supabaseAuthId } from "../../utils/supabaseClient";
 
 import "./index.css";
+import Error from "../../components/Error";
 
 const Product = () => {
   const params = useParams();
   const { dispatch } = useWishlist();
   const { dispatch: dispatchHeader } = useHeader();
-  const navigate = useNavigate();
 
   const [product, setProduct] = useState([]);
   useEffect(() => {
@@ -26,25 +26,7 @@ const Product = () => {
   }, [params.productId]);
 
   return (
-    <If
-      condition={product[0]}
-      otherwise={
-        <div className="not-found flex column">
-          <img
-            className="image-not-found"
-            src="https://constant.myntassets.com/web/assets/img/11488523304066-search404.png"
-            alt="Could not find product"
-          />
-          <h3 className="h3">Could not find the anything!</h3>
-          <button
-            className="primary-btn back-store"
-            onClick={() => navigate("/")}
-          >
-            Take me to store!
-          </button>
-        </div>
-      }
-    >
+    <If condition={product[0]} otherwise={<Error />}>
       <div className="grid-2 product-page">
         <section className="img-container">
           <img
