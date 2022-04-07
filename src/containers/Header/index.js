@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useHeader } from "./headerContext";
@@ -18,6 +18,8 @@ import { supabaseAuthId } from "../../utils/supabaseClient";
 const Header = () => {
   const { items, cartItems, dispatch } = useHeader();
   const { dispatch: dispatchProducts } = useProducts();
+
+  const ref = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
@@ -61,9 +63,23 @@ const Header = () => {
         onChange={debouncedSearch}
         placeholder={SEARCH_PLACEHOLDER}
       />
-      <div className="nav row justify-end">
+      <div
+        className="badge-wrapper hamburger-icon"
+        onClick={() => {
+          if (ref.current.classList[3] !== "active") {
+            ref.current.classList.add("active");
+          } else {
+            ref.current.classList.remove("active");
+          }
+        }}
+      >
+        <i className="fas fa-solid fa-bars fa-2x icon"></i>
+      </div>
+      <div className="nav row justify-end active" ref={ref}>
         <Link className="nav-item" to="/login">
-          <button className="primary-btn">{LOGIN}</button>
+          <div className="badge-wrapper">
+            <i className="fas fa-solid fa-user fa-2x icon"></i>
+          </div>
         </Link>
         <Link className="nav-item" to="/wishlist">
           <div className="badge-wrapper">

@@ -7,6 +7,7 @@ export const HeaderProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     items: 0,
     cartItems: 0,
+    user: null,
   });
 
   return (

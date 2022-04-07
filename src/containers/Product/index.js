@@ -83,23 +83,25 @@ const Product = () => {
           </section>
 
           <table className="table" cellSpacing="0">
-            <tr>
-              <td>
-                <p className="fw-700">More Details:</p>
-              </td>
-            </tr>
-            <tr className="bottom-border">
-              <td className="fw-700">Sizes</td>
-              <td>{product[0]?.meta?.size?.join(", ")}</td>
-            </tr>
-            <tr className="bottom-border">
-              <td className="fw-700">Washable</td>
-              <td>{product[0]?.meta?.washable.toString()}</td>
-            </tr>
-            <tr className="bottom-border">
-              <td className="fw-700">Type</td>
-              <td>{product[0]?.meta?.type}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>
+                  <p className="fw-700">More Details:</p>
+                </td>
+              </tr>
+              <tr className="bottom-border">
+                <td className="fw-700">Sizes</td>
+                <td>{product[0]?.meta?.size?.join(", ")}</td>
+              </tr>
+              <tr className="bottom-border">
+                <td className="fw-700">Washable</td>
+                <td>{product[0]?.meta?.washable.toString()}</td>
+              </tr>
+              <tr className="bottom-border">
+                <td className="fw-700">Type</td>
+                <td>{product[0]?.meta?.type}</td>
+              </tr>
+            </tbody>
           </table>
         </section>
       </div>

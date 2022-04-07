@@ -63,6 +63,15 @@ form > .input {
   width: 90%;
 }
 
+button.secondary-btn.log-out {
+  display: block;
+  position: inherit;
+  bottom: 0;
+
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

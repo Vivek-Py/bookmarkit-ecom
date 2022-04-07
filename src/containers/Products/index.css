@@ -131,3 +131,23 @@ span.price-tip {
 
   padding: 0 1rem;
 }
+
+@media only Screen and (max-width: 600px) {
+  .main-section.grid-2 {
+    grid-template-columns: 1fr;
+  }
+  aside.sidebar {
+    position: relative;
+    order: 1;
+  }
+  .section.grid-auto {
+    order: 1;
+    justify-content: center;
+  }
+  .column.flex-start {
+    padding: 0;
+  }
+  p.text-sm.sub-text {
+    padding-right: 2rem;
+  }
+}

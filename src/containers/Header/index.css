@@ -6,3 +6,31 @@
   border-radius: 10px;
   margin-left: 1rem;
 }
+
+i.fas.fa-solid {
+  color: var(--black);
+}
+
+.hamburger-icon {
+  display: none;
+  margin-left: 2rem;
+}
+
+.nav.row.justify-end.active {
+  display: flex;
+}
+
+@media only screen and (max-width: 759px) {
+  .nav.row.justify-end {
+    display: none;
+    justify-content: center;
+  }
+
+  .hamburger-icon {
+    display: block;
+  }
+
+  header.navbar.row {
+    justify-content: space-around;
+  }
+}
