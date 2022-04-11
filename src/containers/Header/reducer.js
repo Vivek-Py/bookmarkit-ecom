@@ -10,6 +10,11 @@ export const reducer = (state, action) => {
         ...state,
         cartItems: action.payload,
       };
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
     default:
       return state;
   }
